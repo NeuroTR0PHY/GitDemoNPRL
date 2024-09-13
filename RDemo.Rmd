@@ -3,9 +3,6 @@ title: "Team generator"
 output: html_notebook
 ---
 
-
-
-
 Function
 ```{r}
 # Function to assign teams
