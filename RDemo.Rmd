@@ -1,0 +1,58 @@
+---
+title: "Team generator"
+output: html_notebook
+---
+
+
+
+
+Function
+```{r}
+# Function to assign teams
+assign_teams <- function(names, team_size) {
+  # Shuffle the names
+  shuffled_names <- sample(names)
+  
+  # Calculate the number of full teams
+  num_full_teams <- floor(length(names) / team_size)
+  
+  # Create full teams
+  teams <- split(shuffled_names[1:(num_full_teams * team_size)], 
+                 rep(1:num_full_teams, each = team_size))
+  
+  # Add any remaining members to the last team
+  if (length(names) %% team_size != 0) {
+    teams[[length(teams) + 1]] <- shuffled_names[(num_full_teams * team_size + 1):length(names)]
+  }
+  
+  return(teams)
+}
+
+# Main function
+main <- function() {
+  # Manually assign names here
+  names <- c("Nathan", "Yasmine", "Camille", "Iran", "Aryaman", "Jasmine", "Catie", "Andrew", "Emily")
+  
+  # Uncomment the following line if you want to input names manually at runtime
+  # names <- unlist(strsplit(readline("Enter names separated by commas: "), ","))
+  
+  # Remove any leading or trailing whitespace from names
+  names <- trimws(names)
+  
+  # Get team size from user
+  team_size <- as.integer(readline("Enter the desired team size: "))
+  
+  # Assign teams
+  teams <- assign_teams(names, team_size)
+  
+  # Report results
+  cat("\nTeam Assignments:\n")
+  for (i in 1:length(teams)) {
+    cat(sprintf("Team %d: %s\n", i, paste(teams[[i]], collapse = ", ")))
+  }
+}
+
+# Run the main function
+main()
+```
+
